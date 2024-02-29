@@ -21,7 +21,8 @@ print("+----------------------------------------------------------+")
 print("Feito por Guilherme Sodré, 2024")
 
 import math
-
+#lista das pastas
+lista_pastas =[]
 # created by user #1
 userdirs1 = []
 userdirs1_files = []
@@ -178,15 +179,30 @@ while True:
             break
             # MKDIR
     if command == "mkdir":
-        if currentdir == "[~]":
-            if userdirs_val >= 0:
-                all_dirs.insert(0, input("Type in the name of the directory you wish to create:"))
-                userdirs_val += 1
-            elif userdirs_val == 15:
-                print(
-                    "You have reached the maximum number of directories. (3). To see them, run usrdir1, usrdir2 or usrdir3, etc... | As to remove a directory, run rmdir.")
-        else:
-            print("Cannot create a directory in the current directory.")
+        while True:
+            nomepasta = input("Digite o nome da pasta que deseja criar ou (next) para ver as pastas ")
+
+            if nomepasta.lower() == "next":
+                break
+
+            informacao = input("Digite a informação dentro da pasta: ")
+            lista_pastas.append((nomepasta, informacao))
+
+        while True:
+            nomepasta = input("Digite o nome da pasta para ver sua informação (ou 'bye' para encerrar): ")
+
+            if nomepasta.lower() == "bye":
+                break
+
+            pastaencontrada = False
+            for pasta_nome, pasta_info in lista_pastas:
+                if pasta_nome == nomepasta:
+                    print(f"Informação da Pasta '{pasta_nome}': {pasta_info}")
+                    pastaencontrada = True
+                    break
+
+            if not pastaencontrada:
+                print(f"Pasta '{nomepasta}' não encontrada.")
     # RM
     if command == "rm":
         print("To remove a file, type rm followed by the name of the file you wish to remove. Ex: rm mytext.txt")
